@@ -1,8 +1,8 @@
-package Uebung_0;
+package Uebung_0.A_2;
 
 /**
  * @author Tim Schulz
- * @version 23.03.2023
+ * @version 24.03.2023
  * Beschreibt einen Speicher generell
  */
 public interface Puffer {
@@ -27,9 +27,15 @@ public interface Puffer {
 
     /**
      * Fügt dem Speicher ein neues Element hinzu
-     * @param i Übergebenes Element
+     * @param i Übergebener Wert
+     * @throws java.lang.IllegalStateException Falls der Speicher voll ist
      */
     public void insert (int i) throws java.lang.IllegalStateException;
 
+    /**
+     * Entfernt ein Element aus dem Speicher
+     * @throws java.util.NoSuchElementException Falls der Speicher leer ist
+     */
+    public int remove() throws java.util.NoSuchElementException;
 
 }
