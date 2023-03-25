@@ -1,10 +1,13 @@
-package Uebung_1;
+package Uebung_1.A_2;
 
 import Uebung_0.A_2.SchlangeMitArray;
 import org.junit.jupiter.api.*;
-
 import java.util.NoSuchElementException;
 
+/**
+ * @author Tim Schulz
+ * @version 25.03.2023
+ */
 public class SchlangeMitArrayTest {
     private static SchlangeMitArray speicher = null;
 

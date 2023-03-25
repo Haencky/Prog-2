@@ -1,5 +1,6 @@
 package Uebung_0.A_2;
 
+import Uebung_1.A_3.Funktion;
 import java.util.NoSuchElementException;
 
 /**
@@ -82,6 +83,13 @@ public class StapelMitArray implements Stapel {
             throw new NoSuchElementException("Speicher leer");
         } else {
             return arr[size-1];       //Verringert size nicht, da das Element nicht entfernt werden soll
+        }
+    }
+
+    public void applyToAll (Funktion f) {
+        int index = 0;      //Index für das Array
+        for (int i : arr) {
+            arr[index++] = f.auswerten(i);
         }
     }
 }
