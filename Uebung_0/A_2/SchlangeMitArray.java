@@ -11,9 +11,14 @@ public class SchlangeMitArray implements Schlange {
 
     int[] arr;
     int size = 0;
-    int max = 0;
+    int max = 0;    //Max insert
+    int maxRemove = 0;
+    int maxTop = 0;
+
     public SchlangeMitArray(int maxGroesse) {
         max = maxGroesse;
+        maxRemove = maxGroesse;
+        maxTop = maxGroesse;
         arr = new int[maxGroesse];
     }
     /**
@@ -68,7 +73,7 @@ public class SchlangeMitArray implements Schlange {
             throw new NoSuchElementException("Speicher leer");  //Wirft Exception, falls Speicher leer
         }
         size--;         //Verringert size, da Element entfernt wurde
-        return arr[--max];
+        return arr[--maxRemove];
     }
 
     /**
@@ -81,6 +86,6 @@ public class SchlangeMitArray implements Schlange {
         if (size == 0){
             throw new NoSuchElementException("Speicher leer");  //Wirft Exception, falls Speicher leer
         }
-        return arr[--max];
+        return arr[--maxTop];
     }
 }

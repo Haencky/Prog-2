@@ -65,7 +65,9 @@ public class StapelMitArray implements Stapel {
         if (size == 0) {
             throw new NoSuchElementException("Speicher leer");  //Falls kein Element vorhanden ist
         } else {
-            return arr[size--];
+            int ret = arr[size-1];
+            size--;
+            return ret;
         }
     }
 
@@ -79,7 +81,7 @@ public class StapelMitArray implements Stapel {
         if (size == 0) {
             throw new NoSuchElementException("Speicher leer");
         } else {
-            return arr[size];       //Verringert size nicht, da das Element nicht entfernt werden soll
+            return arr[size-1];       //Verringert size nicht, da das Element nicht entfernt werden soll
         }
     }
 }
