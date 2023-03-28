@@ -1,25 +1,26 @@
-package Uebung_0.A_2;
+package Uebung_2.A_3;
 
 import java.util.NoSuchElementException;
 
 /**
  * @author Tim Schulz
- * @version 24.03.2023
+ * @version 28.03.2023
  * Implementiert die Schnittstelle Schlange
  */
-public class SchlangeMitArray implements Schlange {
+public class SchlangeMitArrayGen<T> implements Schlange <T> {
 
-    int[] arr;
+    T[] arr;
     int size = 0;
-    int maxInsert;    //Max insert
+    public int maxInput;    //Max insert
     int maxRemove;
     int max;
 
-    public SchlangeMitArray(int maxGroesse) {
-        maxInsert = maxGroesse;
+    @SuppressWarnings("unchecked")
+    public SchlangeMitArrayGen(int maxGroesse) {
+        maxInput = maxGroesse;
         maxRemove = maxGroesse-1;
         max = maxGroesse;
-        arr = new int[maxGroesse];
+        arr = (T[]) new Object[maxGroesse];
     }
     /**
      * Prüft, ob der Speicher leer ist
@@ -54,18 +55,18 @@ public class SchlangeMitArray implements Schlange {
      * @throws IllegalStateException Falls der Speicher voll ist
      */
     @Override
-    public void insert(int i) throws IllegalStateException {
+    public void insert(T i) throws IllegalStateException {
         if (size == arr.length) {
             throw new IllegalStateException("Speicher voll");       //Wirft Exception, falls Speicher voll
         }
-
+                     //Inkrementiert die size, da Element eingefügt wurde
         if (maxRemove == 0 || size == 0) {
-            maxInsert = max;
+            maxInput = max;
             maxRemove = max-1;
         }
-        arr[--maxInsert] = i;     //Verringert die Position des Einfügens ("stellt sich hinten an")
+        ++size;
+        arr[--maxInput] = i;     //Verringert die Position des Einfügens ("stellt sich hinten an")
                             //-- wegen IndexOutOfBoundException
-        size++;             //Inkrementiert die size, da Element eingefügt wurde
     }
 
     /**
@@ -73,7 +74,7 @@ public class SchlangeMitArray implements Schlange {
      * @throws NoSuchElementException Falls der Speicher leer ist
      */
     @Override
-    public int remove() throws NoSuchElementException {
+    public T remove() throws NoSuchElementException {
         if (size == 0){
             throw new NoSuchElementException("Speicher leer");  //Wirft Exception, falls Speicher leer
         }
@@ -87,7 +88,7 @@ public class SchlangeMitArray implements Schlange {
      * @throws NoSuchElementException Falls der Speicher leer ist
      */
     @Override
-    public int front() throws NoSuchElementException {
+    public T front() throws NoSuchElementException {
         if (size == 0){
             throw new NoSuchElementException("Speicher leer");  //Wirft Exception, falls Speicher leer
         }
