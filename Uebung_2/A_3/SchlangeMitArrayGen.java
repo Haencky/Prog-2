@@ -12,14 +12,10 @@ public class SchlangeMitArrayGen<T> implements Schlange <T> {
     T[] arr;
     int size = 0;
     public int maxInput;    //Max insert
-    int maxRemove;
-    int max;
 
     @SuppressWarnings("unchecked")
     public SchlangeMitArrayGen(int maxGroesse) {
         maxInput = maxGroesse;
-        maxRemove = maxGroesse-1;
-        max = maxGroesse;
         arr = (T[]) new Object[maxGroesse];
     }
     /**
@@ -60,13 +56,10 @@ public class SchlangeMitArrayGen<T> implements Schlange <T> {
             throw new IllegalStateException("Speicher voll");       //Wirft Exception, falls Speicher voll
         }
                      //Inkrementiert die size, da Element eingefügt wurde
-        if (maxRemove == 0 || size == 0) {
-            maxInput = max;
-            maxRemove = max-1;
-        }
+
         ++size;
         arr[--maxInput] = i;     //Verringert die Position des Einfügens ("stellt sich hinten an")
-                            //-- wegen IndexOutOfBoundException
+                                //-- wegen IndexOutOfBoundException
     }
 
     /**
@@ -79,7 +72,10 @@ public class SchlangeMitArrayGen<T> implements Schlange <T> {
             throw new NoSuchElementException("Speicher leer");  //Wirft Exception, falls Speicher leer
         }
         size--;         //Verringert size, da Element entfernt wurde
-        return arr[maxRemove--];
+        T r = arr[capacity()-1];
+        shift();
+        maxInput++;
+        return r;
     }
 
     /**
@@ -92,6 +88,12 @@ public class SchlangeMitArrayGen<T> implements Schlange <T> {
         if (size == 0){
             throw new NoSuchElementException("Speicher leer");  //Wirft Exception, falls Speicher leer
         }
-        return arr[maxRemove];
+        return arr[capacity()-1];
+    }
+
+    private void shift () {
+        for (int i = arr.length-1; i > 0; i--) {
+            arr[i] = arr[i-1];
+        }
     }
 }

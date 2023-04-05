@@ -10,15 +10,11 @@ import java.util.NoSuchElementException;
 public class SchlangeMitArray implements Schlange {
 
     int[] arr;
-    int size = 0;
-    int maxInsert;    //Max insert
-    int maxRemove;
-    int max;
+    private int size = 0;
+    private int maxInsert;    //Max insert
 
     public SchlangeMitArray(int maxGroesse) {
         maxInsert = maxGroesse;
-        maxRemove = maxGroesse-1;
-        max = maxGroesse;
         arr = new int[maxGroesse];
     }
     /**
@@ -59,13 +55,10 @@ public class SchlangeMitArray implements Schlange {
             throw new IllegalStateException("Speicher voll");       //Wirft Exception, falls Speicher voll
         }
 
-        if (maxRemove == 0 || size == 0) {
-            maxInsert = max;
-            maxRemove = max-1;
-        }
-        arr[--maxInsert] = i;     //Verringert die Position des Einfügens ("stellt sich hinten an")
-                            //-- wegen IndexOutOfBoundException
-        size++;             //Inkrementiert die size, da Element eingefügt wurde
+
+        arr[--maxInsert] = i;    //Verringert die Position des Einfügens ("stellt sich hinten an")
+                                //-- wegen IndexOutOfBoundException
+        size++;                 //Inkrementiert die size, da Element eingefügt wurde
     }
 
     /**
@@ -77,8 +70,11 @@ public class SchlangeMitArray implements Schlange {
         if (size == 0){
             throw new NoSuchElementException("Speicher leer");  //Wirft Exception, falls Speicher leer
         }
-        size--;         //Verringert size, da Element entfernt wurde
-        return arr[maxRemove--];
+        int r = arr[capacity()-1];
+        maxInsert++;
+        shift();
+        size--;
+        return r;
     }
 
     /**
@@ -91,6 +87,12 @@ public class SchlangeMitArray implements Schlange {
         if (size == 0){
             throw new NoSuchElementException("Speicher leer");  //Wirft Exception, falls Speicher leer
         }
-        return arr[maxRemove];
+        return arr[capacity()-1];
+    }
+
+    private void shift() {
+        for (int i = arr.length-1; i > 0; i--) {
+            arr[i] = arr[i-1];
+        }
     }
 }
